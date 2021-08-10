@@ -25,10 +25,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 1.6rem;
   line-height: 1.6;
-  min-width: 360px;
+  background-color: #3179ba;
+  min-width: 36rem;
 }
 
 code {
   font-family: 'MD IO 0.2', source-code-pro, Menlo, Monaco, Consolas,
     'Courier New', monospace;
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
 }
