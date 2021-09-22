@@ -1,20 +1,17 @@
-import { AppContainer } from './styles'
-import { Card } from './Card'
+import { useAppState } from './state/AppStateContext'
+
 import { Column } from './Column'
 import { AddNewItem } from './AddNewItem'
 
+import { AppContainer } from './styles'
+
 const App = () => {
+  const { lists } = useAppState()
   return (
     <AppContainer>
-      <Column title="To Do">
-        <Card text="Generate app scaffold" />
-      </Column>
-      <Column title="In Progress">
-        <Card text="Learn TypeScript" />
-      </Column>
-      <Column title="Done">
-        <Card text="Begin to use static typing" />
-      </Column>
+      {lists.map((list) => (
+        <Column title={list.text} id={list.id} key={list.id} />
+      ))}
       <AddNewItem toggleButtonText="+ Add Another list" onAdd={console.log} />
     </AppContainer>
   )
