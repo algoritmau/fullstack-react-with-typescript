@@ -2,6 +2,7 @@ import { createContext, Dispatch, FC, useContext } from 'react'
 import { Action } from './actions'
 import { useImmerReducer } from 'use-immer'
 import { AppState, appStateReducer, List, Task } from './appStateReducer'
+import { DragItem } from '../DragItem'
 
 // Data Structure available to all components through Context
 const appData: AppState = {
@@ -21,7 +22,8 @@ const appData: AppState = {
       text: 'Done',
       tasks: [{ id: 'c2', text: 'Begin to use static typing' }]
     }
-  ]
+  ],
+  draggedItem: null
 }
 
 // Omitting context's default value by passing an empty object casted to AppStateContextProps
@@ -32,13 +34,15 @@ const AppStateContext = createContext<AppStateContextProps>(
 export const AppStateProvider: FC = ({ children }) => {
   const [state, dispatch] = useImmerReducer(appStateReducer, appData)
 
-  const { lists } = state
+  const { lists, draggedItem } = state
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || []
   }
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
+    <AppStateContext.Provider
+      value={{ lists, draggedItem, getTasksByListId, dispatch }}
+    >
       {children}
     </AppStateContext.Provider>
   )
@@ -49,6 +53,7 @@ export const useAppState = () => useContext(AppStateContext)
 
 type AppStateContextProps = {
   lists: List[]
+  draggedItem: DragItem | null
   getTasksByListId(id: string): Task[]
   dispatch: Dispatch<Action>
 }

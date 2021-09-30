@@ -1,17 +1,42 @@
+import { useRef } from 'react'
+
 import { Card } from './Card'
 import { AddNewItem } from './AddNewItem'
 
 import { useAppState } from './state/AppStateContext'
-import { addTask } from './state/actions'
+import { addTask, moveList } from './state/actions'
 
 import { ColumnContainer, ColumnTitle } from './styles'
+import { useItemDrag } from './utils/useItemDrag'
+import { useDrop } from 'react-dnd'
+import { isHidden } from './utils/isHidden'
 
 export const Column = ({ title, id }: ColumnProps) => {
-  const { getTasksByListId, dispatch } = useAppState()
+  const { draggedItem, getTasksByListId, dispatch } = useAppState()
   const tasks = getTasksByListId(id)
+  const columnRef = useRef<HTMLDivElement>(null)
+
+  const { drag } = useItemDrag({ type: 'COLUMN', id, title })
+  const [, drop] = useDrop({
+    accept: 'COLUMN',
+    hover() {
+      if (!draggedItem) return
+
+      if (draggedItem.type === 'COLUMN') {
+        if (draggedItem.id === id) return
+
+        dispatch(moveList(draggedItem.id, id))
+      }
+    }
+  })
+
+  drag(drop(columnRef))
 
   return (
-    <ColumnContainer>
+    <ColumnContainer
+      ref={columnRef}
+      isHidden={isHidden(draggedItem, 'COLUMN', id)}
+    >
       <ColumnTitle>{title}</ColumnTitle>
       {tasks.map((task) => (
         <Card text={task.text} id={task.id} key={task.id} />
