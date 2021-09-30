@@ -1,4 +1,7 @@
-import { createContext, FC, useContext } from 'react'
+import { createContext, Dispatch, FC, useContext } from 'react'
+import { Action } from './actions'
+import { useImmerReducer } from 'use-immer'
+import { AppState, appStateReducer, List, Task } from './appStateReducer'
 
 // Data Structure available to all components through Context
 const appData: AppState = {
@@ -10,12 +13,12 @@ const appData: AppState = {
     },
     {
       id: '1',
-      text: 'To Do',
+      text: 'In Progress',
       tasks: [{ id: 'c1', text: 'Learn TypeScript' }]
     },
     {
       id: '2',
-      text: 'To Do',
+      text: 'Done',
       tasks: [{ id: 'c2', text: 'Begin to use static typing' }]
     }
   ]
@@ -27,14 +30,15 @@ const AppStateContext = createContext<AppStateContextProps>(
 )
 
 export const AppStateProvider: FC = ({ children }) => {
-  const { lists } = appData
+  const [state, dispatch] = useImmerReducer(appStateReducer, appData)
 
+  const { lists } = state
   const getTasksByListId = (id: string) => {
     return lists.find((list) => list.id === id)?.tasks || []
   }
 
   return (
-    <AppStateContext.Provider value={{ lists, getTasksByListId }}>
+    <AppStateContext.Provider value={{ lists, getTasksByListId, dispatch }}>
       {children}
     </AppStateContext.Provider>
   )
@@ -43,22 +47,8 @@ export const AppStateProvider: FC = ({ children }) => {
 // Custom hook to access the context
 export const useAppState = () => useContext(AppStateContext)
 
-type Task = {
-  id: string
-  text: string
-}
-
-type List = {
-  id: string
-  text: string
-  tasks: Task[]
-}
-
-export type AppState = {
-  lists: List[]
-}
-
 type AppStateContextProps = {
   lists: List[]
   getTasksByListId(id: string): Task[]
+  dispatch: Dispatch<Action>
 }
