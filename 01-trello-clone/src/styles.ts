@@ -11,12 +11,31 @@ export const AppContainer = styled.div`
 `
 
 export const DragPreviewContainer = styled.div<DragPreviewContainerProps>`
-  opacity: ${(props) => (props.isHidden ? 0.3 : 1)};
+  transform: ${(props) => (props.isPreview ? 'rotate(5deg)' : 'undefined')};
+  opacity: ${(props) => (props.isHidden ? 0 : 1)};
 `
 
-interface DragPreviewContainerProps {
+type DragPreviewContainerProps = {
   isHidden?: boolean
+  isPreview?: boolean
 }
+
+type DragPreviewWrapperProps = {
+  position: {
+    x: number
+    y: number
+  }
+}
+
+// Prevent generating a new class every time the position of the preview changes
+// by assigning the styles attribute to our component instead
+export const DragPreviewWrapper = styled.div.attrs<DragPreviewWrapperProps>(
+  ({ position: { x, y } }) => ({
+    style: {
+      transform: `translate(${x}px, ${y}px)`
+    }
+  })
+)<DragPreviewWrapperProps>``
 
 export const ColumnContainer = styled(DragPreviewContainer)`
   background-color: #ebecf0;
@@ -88,4 +107,14 @@ export const NewItemInput = styled.input`
   margin-bottom: 0.5rem;
   padding: 0.5rem 1rem;
   width: 100%;
+`
+
+export const CustomDragLayerContainer = styled.div`
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  pointer-events: none;
 `

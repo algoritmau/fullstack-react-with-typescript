@@ -11,7 +11,7 @@ import { useItemDrag } from './utils/useItemDrag'
 import { useDrop } from 'react-dnd'
 import { isHidden } from './utils/isHidden'
 
-export const Column = ({ title, id }: ColumnProps) => {
+export const Column = ({ title, id, isPreview }: ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState()
   const tasks = getTasksByListId(id)
   const columnRef = useRef<HTMLDivElement>(null)
@@ -34,8 +34,9 @@ export const Column = ({ title, id }: ColumnProps) => {
 
   return (
     <ColumnContainer
+      isPreview={isPreview}
       ref={columnRef}
-      isHidden={isHidden(draggedItem, 'COLUMN', id)}
+      isHidden={isHidden(draggedItem, 'COLUMN', id, isPreview)}
     >
       <ColumnTitle>{title}</ColumnTitle>
       {tasks.map((task) => (
@@ -53,4 +54,5 @@ export const Column = ({ title, id }: ColumnProps) => {
 type ColumnProps = {
   title: string
   id: string
+  isPreview?: boolean
 }
