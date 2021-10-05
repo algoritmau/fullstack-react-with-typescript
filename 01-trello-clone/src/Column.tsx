@@ -1,34 +1,50 @@
 import { useRef } from 'react'
+import { useDrop } from 'react-dnd'
+
+import { useAppState } from './state/AppStateContext'
+import { addTask, moveList, moveTask, setDraggedItem } from './state/actions'
 
 import { Card } from './Card'
 import { AddNewItem } from './AddNewItem'
 
-import { useAppState } from './state/AppStateContext'
-import { addTask, moveList } from './state/actions'
+import { DragItem } from './DragItem'
+import { useItemDrag } from './utils/useItemDrag'
+import { isHidden } from './utils/isHidden'
 
 import { ColumnContainer, ColumnTitle } from './styles'
-import { useItemDrag } from './utils/useItemDrag'
-import { useDrop } from 'react-dnd'
-import { isHidden } from './utils/isHidden'
+
+type ColumnProps = {
+  title: string
+  id: string
+  isPreview?: boolean
+}
 
 export const Column = ({ title, id, isPreview }: ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState()
   const tasks = getTasksByListId(id)
   const columnRef = useRef<HTMLDivElement>(null)
 
-  const { drag } = useItemDrag({ type: 'COLUMN', id, title })
   const [, drop] = useDrop({
-    accept: 'COLUMN',
-    hover() {
+    accept: ['COLUMN', 'CARD'],
+    hover(item: DragItem) {
       if (!draggedItem) return
 
       if (draggedItem.type === 'COLUMN') {
         if (draggedItem.id === id) return
 
         dispatch(moveList(draggedItem.id, id))
+      } else {
+        if (draggedItem.columnId === id) return
+
+        if (tasks.length) return
+
+        dispatch(moveTask(draggedItem.id, null, draggedItem.columnId, id))
+        dispatch(setDraggedItem({ ...draggedItem, columnId: id }))
       }
     }
   })
+
+  const { drag } = useItemDrag({ type: 'COLUMN', id, title })
 
   drag(drop(columnRef))
 
@@ -40,7 +56,7 @@ export const Column = ({ title, id, isPreview }: ColumnProps) => {
     >
       <ColumnTitle>{title}</ColumnTitle>
       {tasks.map((task) => (
-        <Card text={task.text} id={task.id} key={task.id} />
+        <Card title={task.text} id={task.id} columnId={id} key={task.id} />
       ))}
       <AddNewItem
         toggleButtonText="+Add another task"
@@ -49,10 +65,4 @@ export const Column = ({ title, id, isPreview }: ColumnProps) => {
       />
     </ColumnContainer>
   )
-}
-
-type ColumnProps = {
-  title: string
-  id: string
-  isPreview?: boolean
 }

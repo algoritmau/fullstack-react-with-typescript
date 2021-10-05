@@ -16,6 +16,16 @@ export const moveList = (draggedId: string, hoverId: string): Action => ({
   payload: { draggedId, hoverId }
 })
 
+export const moveTask = (
+  draggedItemId: string,
+  hoveredItemId: string | null,
+  sourceColumnId: string,
+  targetColumnId: string
+): Action => ({
+  type: 'MOVE_TASK',
+  payload: { draggedItemId, hoveredItemId, sourceColumnId, targetColumnId }
+})
+
 export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
   type: 'SET_DRAGGED_ITEM',
   payload: draggedItem
@@ -38,6 +48,15 @@ export type Action =
       payload: {
         draggedId: string
         hoverId: string
+      }
+    }
+  | {
+      type: 'MOVE_TASK'
+      payload: {
+        draggedItemId: string // ref to the task being dragged
+        hoveredItemId: string | null // ref to the task being hovered over
+        sourceColumnId: string // ref to the list the task is being dragged from
+        targetColumnId: string // ref to the list the task is being dragged to
       }
     }
   | {

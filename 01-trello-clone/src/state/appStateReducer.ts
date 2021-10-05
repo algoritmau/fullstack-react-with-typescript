@@ -15,6 +15,7 @@ export const appStateReducer = (
         tasks: []
       })
       break
+
     case 'ADD_TASK':
       const { text, listId } = action.payload
       const targetListIndex = findItemIndexById(draft.lists, listId)
@@ -24,6 +25,7 @@ export const appStateReducer = (
         text
       })
       break
+
     case 'MOVE_LIST':
       const { draggedId, hoverId } = action.payload
       const dragIndex = findItemIndexById(draft.lists, draggedId)
@@ -32,9 +34,29 @@ export const appStateReducer = (
       draft.lists = moveItem(draft.lists, dragIndex, hoverIndex)
       break
 
+    case 'MOVE_TASK':
+      const { draggedItemId, hoveredItemId, sourceColumnId, targetColumnId } =
+        action.payload
+      const sourceListIndex = findItemIndexById(draft.lists, sourceColumnId) // get the source list indices
+      const targetListIndex2 = findItemIndexById(draft.lists, targetColumnId) // get the target list indices
+      const draggedItemIndex = findItemIndexById(
+        draft.lists[sourceListIndex].tasks,
+        draggedItemId
+      ) // get the dragged item index
+      const hoveredItemIndex = hoveredItemId
+        ? findItemIndexById(draft.lists[targetListIndex2].tasks, hoveredItemId)
+        : 0 // get the hovered item index
+      const movedItem = draft.lists[sourceListIndex].tasks[draggedItemIndex] // get the dragged item
+
+      draft.lists[sourceListIndex].tasks.splice(draggedItemIndex, 1) // remove the dragged item from the source list
+      draft.lists[targetListIndex2].tasks.splice(hoveredItemIndex, 0, movedItem) // insert the dragged item into the target list
+
+      break
+
     case 'SET_DRAGGED_ITEM':
       draft.draggedItem = action.payload
       break
+
     default:
       break
   }
