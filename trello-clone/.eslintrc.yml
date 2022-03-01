@@ -1,0 +1,24 @@
+---
+root: true
+
+env:
+  browser: true
+  commonjs: true
+  es2021: true
+
+extends:
+  - react-app
+  - react-app/jest
+
+parserOptions:
+  ecmaVersion: 13
+
+rules:
+  comma-dangle: ['error', 'never']
+  max-len:
+    - 'error'
+    - code: 80
+    - ignoreComments: true
+  newline-before-return: 'error'
+  no-console: 'off'
+  semi: ['error', 'never']
