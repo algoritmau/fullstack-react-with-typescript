@@ -4,7 +4,7 @@ export const StyledAppContainer = styled.main`
   background-color: var(--color-blue);
   color: var(--color-white);
   min-height: 40rem;
-  height: 100vh;
+  height: calc(100vh - 8rem);
   max-width: var(--max-width);
   padding: 2.4rem 2rem;
   margin: 0 auto;
@@ -36,6 +36,10 @@ export const StyledAppContainer = styled.main`
     flex-direction: column;
     align-items: flex-start;
     gap: 2.4rem;
+
+    & > div {
+      width: 100%;
+    }
 
     @media (min-width: 768px) {
       flex-direction: row;
