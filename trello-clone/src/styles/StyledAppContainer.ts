@@ -34,6 +34,7 @@ export const StyledAppContainer = styled.main`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 2.4rem;
 
     @media (min-width: 768px) {
