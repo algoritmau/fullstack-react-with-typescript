@@ -29,7 +29,11 @@ export const AddNewItem = ({
   }
 
   return (
-    <StyledAddItemButton dark={dark} onClick={() => setShowForm(true)}>
+    <StyledAddItemButton
+      dark={dark}
+      onClick={() => setShowForm(true)}
+      tabIndex={1}
+    >
       {toggleButtonText}
     </StyledAddItemButton>
   )

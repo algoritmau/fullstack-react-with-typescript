@@ -6,5 +6,5 @@ type CardProps = {
 }
 
 export const Card = ({ text }: CardProps) => (
-  <StyledCardContainer>{text}</StyledCardContainer>
+  <StyledCardContainer tabIndex={1}>{text}</StyledCardContainer>
 )
