@@ -7,6 +7,7 @@ export { StyledCustomDragLayerContainer } from './StyledCustomDragLayerContainer
 export { StyledDragPreviewContainer } from './StyledDragPreviewContainer'
 export { StyledColumnTitle } from './StyledColumnTitle'
 export { StyledDragPreviewWrapper } from './StyledDragPreviewWrapper'
+export { StyledFooter } from './StyledFooter'
 export { StyledNewItemButton } from './StyledNewItemButton'
 export { StyledNewItemFormContainer } from './StyledNewItemFormContainer'
 export { StyledNewItemInput } from './StyledNewItemInput'
