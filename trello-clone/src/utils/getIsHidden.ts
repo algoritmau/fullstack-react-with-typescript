@@ -6,11 +6,18 @@ import { DragItem } from '../DragItem'
  * @param  {DragItem|null} draggedItem
  * @param  {string} itemType
  * @param  {string} id
+ * @param {boolean} isPreview
  * @return {boolean}
  */
 export const getIsHidden = (
   draggedItem: DragItem | null,
   itemType: string,
-  id: string
+  id: string,
+  isPreview?: boolean
 ): boolean =>
-  Boolean(draggedItem && draggedItem.type === itemType && draggedItem.id === id)
+  Boolean(
+    !isPreview &&
+      draggedItem &&
+      draggedItem.type === itemType &&
+      draggedItem.id === id
+  )

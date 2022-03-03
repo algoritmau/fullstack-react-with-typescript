@@ -15,9 +15,10 @@ import { StyledColumnContainer, StyledColumnTitle } from '../styles'
 type ColumnProps = {
   id: string
   title: string
+  isPreview?: boolean
 }
 
-export const Column = ({ id, title }: ColumnProps) => {
+export const Column = ({ id, title, isPreview }: ColumnProps) => {
   const { draggedItem, getTasksByListId, dispatch } = useAppState()
   const tasks = getTasksByListId(id)
   const draggedColumnRef = useRef<HTMLDivElement>(null)
@@ -44,9 +45,10 @@ export const Column = ({ id, title }: ColumnProps) => {
   return (
     <StyledColumnContainer
       ref={draggedColumnRef}
-      isHidden={getIsHidden(draggedItem, 'COLUMN', id)}
+      isHidden={getIsHidden(draggedItem, 'COLUMN', id, isPreview)}
+      isPreview={isPreview}
     >
-      <StyledColumnTitle>{title}</StyledColumnTitle>
+      <StyledColumnTitle tabIndex={1}>{title}</StyledColumnTitle>
       {tasks.map((task) => (
         <Card key={task.id} id={task.id} text={task.text} />
       ))}

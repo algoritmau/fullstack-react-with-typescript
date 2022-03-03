@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import { DragPreviewContainer } from './DragPreviewContainer'
+import { StyledDragPreviewContainer } from './StyledDragPreviewContainer'
 
-export const StyledColumnContainer = styled(DragPreviewContainer)`
+export const StyledColumnContainer = styled(StyledDragPreviewContainer)`
   background-color: #ebecf0;
   min-height: 4rem;
   border-radius: 3px;

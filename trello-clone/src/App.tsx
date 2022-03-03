@@ -2,7 +2,7 @@ import { useAppState } from './state/AppStateContext'
 
 import { addList } from './state/actions'
 
-import { AddNewItem, Column } from './components'
+import { AddNewItem, Column, CustomDragLayer } from './components'
 
 import { GlobalStyles } from './styles/GlobalStyles'
 import { StyledAppContainer } from './styles'
@@ -14,8 +14,11 @@ export const App = () => {
     <>
       <GlobalStyles />
       <StyledAppContainer>
-        <h1 className="title">Trello Clone</h1>
+        <h1 className="title" tabIndex={1}>
+          Trello Clone
+        </h1>
         <div className="content">
+          <CustomDragLayer />
           {lists.map((list) => (
             <Column key={list.id} id={list.id} title={list.text} />
           ))}

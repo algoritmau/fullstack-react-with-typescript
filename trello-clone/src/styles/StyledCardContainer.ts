@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
-import { DragPreviewContainer } from './DragPreviewContainer'
+import { StyledDragPreviewContainer } from './StyledDragPreviewContainer'
 
-export const StyledCardContainer = styled(DragPreviewContainer)`
+export const StyledCardContainer = styled(StyledDragPreviewContainer)`
   background-color: var(--color-white);
   color: var(--color-black);
   font-family: inherit;
