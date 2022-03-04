@@ -21,12 +21,27 @@ type MoveList = {
   }
 }
 
+type MoveTask = {
+  type: 'MOVE_TASK'
+  payload: {
+    draggedItemId: string
+    hoveredItemId: string | null
+    sourceColumnId: string
+    targetColumnId: string
+  }
+}
+
 type SetDraggedItem = {
   type: 'SET_DRAGGED_ITEM'
   payload: DragItem | null
 }
 
-export type Action = AddListAction | AddTaskAction | MoveList | SetDraggedItem
+export type Action =
+  | AddListAction
+  | AddTaskAction
+  | MoveList
+  | SetDraggedItem
+  | MoveTask
 
 // Action creators
 export const addList = (text: string): Action => ({
@@ -47,6 +62,21 @@ export const moveList = (draggedId: string, targetId: string): Action => ({
   payload: {
     draggedId,
     targetId
+  }
+})
+
+export const moveTask = (
+  draggedItemId: string,
+  hoveredItemId: string | null,
+  sourceColumnId: string,
+  targetColumnId: string
+): Action => ({
+  type: 'MOVE_TASK',
+  payload: {
+    draggedItemId,
+    hoveredItemId,
+    sourceColumnId,
+    targetColumnId
   }
 })
 

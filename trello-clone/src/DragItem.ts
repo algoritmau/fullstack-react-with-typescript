@@ -1,7 +1,14 @@
-type ColumnDragItem = {
+type CardDragItem = {
+  type: 'CARD'
   id: string
-  title: string
-  type: 'COLUMN'
+  text: string
+  columnId: string
 }
 
-export type DragItem = ColumnDragItem
+type ColumnDragItem = {
+  type: 'COLUMN'
+  id: string
+  title: string
+}
+
+export type DragItem = CardDragItem | ColumnDragItem

@@ -12,4 +12,5 @@ export const StyledCardContainer = styled(StyledDragPreviewContainer)`
   /* max-width: 300px; */
   border-radius: 3px;
   box-shadow: #091e4240 0px 1px 0px 0px;
+  max-width: 300px;
 `
