@@ -1,11 +1,11 @@
-import { useAppState } from './state/AppStateContext'
+import { useAppState } from "./state/AppStateContext"
 
-import { addList } from './state/actions'
+import { addList } from "./state/actions"
 
-import { AddNewItem, Column, CustomDragLayer, Footer } from './components'
+import { AddNewItem, Column, CustomDragLayer, Footer } from "./components"
 
-import { GlobalStyles } from './styles/GlobalStyles'
-import { StyledAppContainer } from './styles'
+import { GlobalStyles } from "./styles/GlobalStyles"
+import { StyledAppContainer } from "./styles"
 
 export const App = () => {
   const { lists, dispatch } = useAppState()

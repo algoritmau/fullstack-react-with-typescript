@@ -1,12 +1,12 @@
 type CardDragItem = {
-  type: 'CARD'
+  type: "CARD"
   id: string
   text: string
   columnId: string
 }
 
 type ColumnDragItem = {
-  type: 'COLUMN'
+  type: "COLUMN"
   id: string
   title: string
 }

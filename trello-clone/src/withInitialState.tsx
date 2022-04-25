@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react'
-import { AppState } from './state/appStateReducer'
-import { load } from './api'
+import { ComponentType, useEffect, useState } from "react"
+import { loadData } from "./api"
+
+import { AppState } from "./state/appStateReducer"
 
 type InjectedProps = {
   initialState: AppState
@@ -9,9 +10,7 @@ type InjectedProps = {
 type PropsWithoutInjected<TBaseProps> = Omit<TBaseProps, keyof InjectedProps>
 
 export function withInitialState<TProps>(
-  WrappedComponent: React.ComponentType<
-    PropsWithoutInjected<TProps> & InjectedProps
-  >
+  WrappedComponent: ComponentType<PropsWithoutInjected<TProps> & InjectedProps>
 ) {
   return (props: PropsWithoutInjected<TProps>) => {
     const [initialState, setInitialState] = useState<AppState>({
@@ -22,26 +21,24 @@ export function withInitialState<TProps>(
     const [error, setError] = useState<Error | undefined>()
 
     useEffect(() => {
-      const fetchInitialState = async () => {
+      const fecthInitialState = async () => {
         try {
-          const data = await load()
+          const data = await loadData()
           setInitialState(data)
-        } catch (error) {
-          setError(error as Error)
+        } catch (e) {
+          setError(e as Error)
         }
+
         setIsLoading(false)
       }
-      fetchInitialState()
+
+      fecthInitialState()
     }, [])
 
-    if (isLoading) {
-      return <div>Loading</div>
-    }
+    if (isLoading) return <div>Loading...</div>
 
-    if (error) {
-      return <div>{error.message}</div>
-    }
+    if (error) return <div>Error: {error.message}</div>
 
-    return <WrappedComponent {...props} initialState={initialState} />
+    return <WrappedComponent initialState={initialState} {...props} />
   }
 }

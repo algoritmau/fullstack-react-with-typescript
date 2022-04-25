@@ -1,12 +1,12 @@
-import { DragItem } from '../DragItem'
+import { DragItem } from "../DragItem"
 
 type AddListAction = {
-  type: 'ADD_LIST'
+  type: "ADD_LIST"
   payload: string
 }
 
 type AddTaskAction = {
-  type: 'ADD_TASK'
+  type: "ADD_TASK"
   payload: {
     text: string
     listId: string
@@ -14,7 +14,7 @@ type AddTaskAction = {
 }
 
 type MoveList = {
-  type: 'MOVE_LIST'
+  type: "MOVE_LIST"
   payload: {
     draggedId: string
     targetId: string
@@ -22,7 +22,7 @@ type MoveList = {
 }
 
 type MoveTask = {
-  type: 'MOVE_TASK'
+  type: "MOVE_TASK"
   payload: {
     draggedItemId: string
     hoveredItemId: string | null
@@ -32,7 +32,7 @@ type MoveTask = {
 }
 
 type SetDraggedItem = {
-  type: 'SET_DRAGGED_ITEM'
+  type: "SET_DRAGGED_ITEM"
   payload: DragItem | null
 }
 
@@ -45,12 +45,12 @@ export type Action =
 
 // Action creators
 export const addList = (text: string): Action => ({
-  type: 'ADD_LIST',
+  type: "ADD_LIST",
   payload: text
 })
 
 export const addTask = (text: string, listId: string): Action => ({
-  type: 'ADD_TASK',
+  type: "ADD_TASK",
   payload: {
     text,
     listId
@@ -58,7 +58,7 @@ export const addTask = (text: string, listId: string): Action => ({
 })
 
 export const moveList = (draggedId: string, targetId: string): Action => ({
-  type: 'MOVE_LIST',
+  type: "MOVE_LIST",
   payload: {
     draggedId,
     targetId
@@ -71,7 +71,7 @@ export const moveTask = (
   sourceColumnId: string,
   targetColumnId: string
 ): Action => ({
-  type: 'MOVE_TASK',
+  type: "MOVE_TASK",
   payload: {
     draggedItemId,
     hoveredItemId,
@@ -81,6 +81,6 @@ export const moveTask = (
 })
 
 export const setDraggedItem = (draggedItem: DragItem | null): Action => ({
-  type: 'SET_DRAGGED_ITEM',
+  type: "SET_DRAGGED_ITEM",
   payload: draggedItem
 })

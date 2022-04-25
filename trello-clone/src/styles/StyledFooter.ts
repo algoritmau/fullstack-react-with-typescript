@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
 export const StyledFooter = styled.footer`
   background-color: #2b68a1;
@@ -7,6 +7,9 @@ export const StyledFooter = styled.footer`
   display: flex;
   align-items: center;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 
   p,
   a {

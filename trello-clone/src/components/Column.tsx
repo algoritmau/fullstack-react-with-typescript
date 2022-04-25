@@ -1,18 +1,18 @@
-import { useRef } from 'react'
+import { useRef } from "react"
 
-import { useDrop } from 'react-dnd'
+import { useDrop } from "react-dnd"
 
-import { useAppState } from '../state/AppStateContext'
-import { addTask, moveList, moveTask, setDraggedItem } from '../state/actions'
+import { useAppState } from "../state/AppStateContext"
+import { addTask, moveList, moveTask, setDraggedItem } from "../state/actions"
 
-import { getIsHidden, useItemDrag } from '../utils'
+import { getIsHidden, useItemDrag } from "../utils"
 
-import { AddNewItem } from './AddNewItem'
-import { Card } from './Card'
+import { AddNewItem } from "./AddNewItem"
+import { Card } from "./Card"
 
-import { DragItem } from '../DragItem'
+import { DragItem } from "../DragItem"
 
-import { StyledColumnContainer, StyledColumnTitle } from '../styles'
+import { StyledColumnContainer, StyledColumnTitle } from "../styles"
 
 type ColumnProps = {
   id: string
@@ -26,11 +26,11 @@ export const Column = ({ id, title, isPreview }: ColumnProps) => {
   const draggedColumnRef = useRef<HTMLDivElement>(null)
 
   const [, drop] = useDrop({
-    accept: ['CARD', 'COLUMN'],
+    accept: ["CARD", "COLUMN"],
     hover: (item: DragItem) => {
       if (!item) return
 
-      if (item.type === 'COLUMN') {
+      if (item.type === "COLUMN") {
         if (item.id === id) return
 
         dispatch(moveList(item.id, id))
@@ -44,7 +44,7 @@ export const Column = ({ id, title, isPreview }: ColumnProps) => {
   })
 
   const { drag } = useItemDrag({
-    type: 'COLUMN',
+    type: "COLUMN",
     id,
     title
   })
@@ -54,7 +54,7 @@ export const Column = ({ id, title, isPreview }: ColumnProps) => {
   return (
     <StyledColumnContainer
       ref={draggedColumnRef}
-      isHidden={getIsHidden(draggedItem, 'COLUMN', id, isPreview)}
+      isHidden={getIsHidden(draggedItem, "COLUMN", id, isPreview)}
       isPreview={isPreview}
     >
       <StyledColumnTitle tabIndex={1}>{title}</StyledColumnTitle>

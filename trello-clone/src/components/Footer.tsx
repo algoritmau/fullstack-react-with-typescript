@@ -1,11 +1,11 @@
-import { StyledFooter } from '../styles'
+import { StyledFooter } from "../styles"
 
 export const Footer = () => {
   return (
     <StyledFooter>
       <p>
-        Coded by{' '}
-        <a href="https://spaceinva.dev" target="_blank" rel="noreferrer">
+        Coded by{" "}
+        <a href="https://patternina.co" target="_blank" rel="noreferrer">
           Mauricio Paternina
         </a>
         .

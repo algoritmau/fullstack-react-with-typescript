@@ -1,10 +1,9 @@
-import styled from 'styled-components'
+import styled from "styled-components"
 
 export const StyledAppContainer = styled.main`
   background-color: var(--color-blue);
   color: var(--color-white);
   min-height: 40rem;
-  height: calc(100vh - 8rem);
   max-width: var(--max-width);
   padding: 2.4rem 2rem;
   margin: 0 auto;

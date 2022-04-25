@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from "react"
+import ReactDOM from "react-dom"
 
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend as Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from "react-dnd"
+import { HTML5Backend as Backend } from "react-dnd-html5-backend"
 
-import { AppStateProvider } from './state/AppStateContext'
+import { AppStateProvider } from "./state/AppStateContext"
 
-import { App } from './App'
+import { App } from "./App"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,5 +16,5 @@ ReactDOM.render(
       </AppStateProvider>
     </DndProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 )
