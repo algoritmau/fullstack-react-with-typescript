@@ -1,0 +1,19 @@
+.container {
+  background: var(--color-black);
+  height: var(--header-height);
+}
+
+.container,
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  gap: 1.2rem;
+}
+
+.title span {
+  color: var(--color-white);
+}
