@@ -1,6 +1,14 @@
-# Getting Started with Create React App
+# React Piano
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Features
+
+- CSS Modules for styling
+- Uses `AudioContext` to access the browser’s audio API.
+- Uses Soundfont API to load and play pre-rendered sounds of many instruments.
+- Implements a Provider pattern to make Soundfont’s functionality accessible to our app.
+- React patterns: Render Props and Higher Order Components.
 
 ## Available Scripts
 
