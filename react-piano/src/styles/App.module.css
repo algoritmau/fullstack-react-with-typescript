@@ -26,13 +26,3 @@ body {
 .app {
   min-height: 100vh;
 }
-
-.content {
-  --offset: calc(var(--header-height) + var(--footer-height));
-  min-height: calc(100vh - var(--offset));
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: tomato;
-}

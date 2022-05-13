@@ -1,3 +1,7 @@
 .container {
+  --offset: calc(var(--header-height) + var(--footer-height));
+  min-height: calc(100vh - var(--offset));
+
   display: flex;
+  justify-content: center;
 }
