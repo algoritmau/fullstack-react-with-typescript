@@ -14,9 +14,14 @@ type KeyProps = {
 
 export const Key: FunctionComponent<KeyProps> = (props) => {
   const { type, label, ...rest } = props
+  const altClass = styles[`key--${type}`]
 
   return (
-    <button className={clsx(styles.key, styles[type])} type="button" {...rest}>
+    <button
+      className={clsx(`${styles.key} ${altClass}`)}
+      type="button"
+      {...rest}
+    >
       {label}
     </button>
   )
