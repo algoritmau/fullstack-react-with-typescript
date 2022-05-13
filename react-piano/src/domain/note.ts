@@ -1,3 +1,12 @@
+// Application constraints
+const C1_MIDI_VALUE = 24
+const C4_MIDI_VALUE = 60
+const B5_MIDI_VALUE = 83
+
+export const LOWER_NOTE = C4_MIDI_VALUE
+export const UPPER_NOTE = B5_MIDI_VALUE
+export const SEMITONES_PER_OCTAVE = 12
+
 export type NoteType = "natural" | "flat" | "sharp"
 export type NotePitch = "A" | "B" | "C" | "D" | "E" | "F" | "G"
 export type OctaveIndex = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
@@ -6,7 +15,7 @@ export type MidiValue = number // A number from the OctaveIndex
 export type PitchIndex = number // The index of a given pitch in a 0-11 octave range
 
 // Custom Note type
-export type Note = {
+export interface Note {
   midi: MidiValue // a number in octave notation
   type: NoteType
 
@@ -15,16 +24,8 @@ export type Note = {
   octave: OctaveIndex
 }
 
-// Application constraints
-const C1_MIDI_VALUE = 24
-const C4_MIDI_VALUE = 60
-const B5_MIDI_VALUE = 83
-
-export const LOWER_NOTE = C1_MIDI_VALUE
-export const UPPER_NOTE = B5_MIDI_VALUE
-export const SEMITONES_PER_OCTAVE = 12
-
 export const NATURAL_PITCH_INDICES: PitchIndex[] = [0, 2, 4, 5, 7, 9, 11]
+
 export const PITCHES_REGISTRY: Record<PitchIndex, NotePitch> = {
   0: "C",
   1: "C",
@@ -62,11 +63,11 @@ export const generateNote = (midi: MidiValue): Note => {
   const isSharp = !NATURAL_PITCH_INDICES.includes(index)
   const type = isSharp ? "sharp" : "natural"
 
-  return { midi, type, pitch, index, octave }
+  return { octave, pitch, index, type, midi }
 }
 
 // Create an initial set of notes
-type NotesGeneratorSettings = {
+interface NotesGeneratorSettings {
   fromNote?: MidiValue
   toNote?: MidiValue
 }
