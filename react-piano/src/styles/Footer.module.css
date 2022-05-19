@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: var(--footer-height);
+  padding: 5px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.credits {
+  text-align: center;
+}
+
+.credits a {
+  color: var(--color-accent);
+  text-underline-offset: 2px;
+}
