@@ -1,4 +1,7 @@
-import { useAudioContext, useMount, useSoundfont } from "../../hooks"
+import { useEffect } from "react"
+
+import { useAudioContext, useSoundfont } from "../../hooks"
+import { useInstrument } from "../../state"
 
 import { Keyboard } from "./Keyboard"
 
@@ -8,9 +11,12 @@ import { Keyboard } from "./Keyboard"
  */
 export const KeyboardWithInstrument = () => {
   const AudioContext = useAudioContext()!
-  const { loading, play, stop, load } = useSoundfont({ AudioContext })
+  const { instrument } = useInstrument()
+  const { loading, current, play, stop, load } = useSoundfont({ AudioContext })
 
-  useMount(load)
+  useEffect(() => {
+    if (!loading && instrument !== current) load(instrument)
+  }, [load, loading, current, instrument])
 
   return <Keyboard loading={loading} play={play} stop={stop} />
 }
