@@ -4,6 +4,8 @@ import clsx from "clsx"
 
 import { NoteType } from "../../domain"
 
+import { useKeyPressObserver } from "../../hooks"
+
 import styles from "../../styles/Key.module.css"
 
 type PressCallback = () => void
@@ -24,11 +26,19 @@ export const Key: FunctionComponent<KeyProps> = ({
   onUp,
   ...rest
 }) => {
+  const pressed = useKeyPressObserver({
+    watchedKey: label,
+    onStartKeyPress: onDown,
+    onEndKeyPress: onUp
+  })
+
   const altClass = styles[`key--${type}`]
 
   return (
     <button
-      className={clsx(`${styles.key} ${altClass}`)}
+      className={clsx(
+        `${styles.key} ${altClass} ${pressed && styles["is-pressed"]}`
+      )}
       onMouseDown={onDown}
       onMouseUp={onUp}
       type="button"
